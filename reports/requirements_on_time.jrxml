@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
+<!-- 2016-05-16T16:46:08 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="requirements_on_time" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5ca825df-7ce5-44a5-8bf7-75895bae3d96">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySqlDriver - final"/>
+	<queryString>
+		<![CDATA[SELECT Требования.Требование as RequirementsOnTime
+ From Требования
+ INNER JOIN 
+   (SELECT Требование,`Процент выполняемости в проектах`
+    From 
+       (SELECT Требование, (count(*) * 100.0 / 
+         (SELECT count(*) FROM  
+ 		   (SELECT Требование FROM `Проект-Требование` 
+             INNER JOIN Проект 
+ 		    ON `Проект-Требование`.Проект = Проект.Название 
+             WHERE Проект.Закончен = True AND `Проект-требование`.`В срок` = True) as firstT)) AS `Процент выполняемости в проектах`
+       FROM 
+          (SELECT Требование 
+           FROM `Проект-Требование` 
+           INNER JOIN Проект 
+           ON `Проект-Требование`.Проект = Проект.Название 
+           WHERE Проект.Закончен = True AND `Проект-требование`.`В срок` = True) as secondT
+           GROUP BY Требование) as tt
+    ) as onTable
+ ON Требования.id = onTable.Требование
+ WHERE `Процент выполняемости в проектах` = (
+   SELECT max(`Процент выполняемости в проектах`) FROM (
+     SELECT Требование, (count(*) * 100.0 / 
+        (SELECT count(*) FROM (
+          SELECT Требование 
+           FROM `Проект-Требование` 
+           INNER JOIN Проект 
+           ON `Проект-Требование`.Проект = Проект.Название 
+           WHERE Проект.Закончен = True AND `Проект-требование`.`В срок` = True) as tttrrt)) AS `Процент выполняемости в проектах`
+ 	 FROM (
+ 	   SELECT Требование 
+ 	    FROM `Проект-Требование` 
+         INNER JOIN Проект 
+         ON `Проект-Требование`.Проект = Проект.Название 
+         WHERE Проект.Закончен = True AND `Проект-требование`.`В срок` = True) as fouthT
+    GROUP BY Требование) as lastT)]]>
+	</queryString>
+	<field name="RequirementsOnTime" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="-11" y="9" width="581" height="61" uuid="c2569fc2-85dd-4f29-98dc-971dd9bbf8b6"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Отчет по задаче: "Найти какие требования чаще всего выполняются к сроку"]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="54" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="-2" width="510" height="36" backcolor="#ADAAAA" uuid="b7fe9988-8422-4947-b79a-dd21c62817d2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="90" y="4" width="350" height="30" uuid="b780f03b-66e9-45b9-8f4b-aac6dd96c52b"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Требования в срок]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="64" splitType="Stretch">
+			<textField>
+				<reportElement x="90" y="10" width="350" height="30" uuid="08f65cc8-c50c-4603-b5f7-f38f4ffe5261"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{RequirementsOnTime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="58">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="-10" y="12" width="100" height="30" uuid="9c13bfb2-3fa9-4a8e-97fc-abcafaea2f62"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="80" y="12" width="100" height="30" uuid="d4041a02-12fe-4942-9853-d2a65364dacc"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="117" y="15" width="16" height="5" uuid="81864e62-7dac-49d5-bf6f-efda4381fada"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="133" y="15" width="16" height="5" uuid="620b44ab-9bfc-4b58-8c65-3adf73ed68ab"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

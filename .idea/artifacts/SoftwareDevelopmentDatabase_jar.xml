@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SoftwareDevelopmentDatabase:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SoftwareDevelopmentDatabase_jar</output-path>
+    <root id="archive" name="SoftwareDevelopmentDatabase.jar">
+      <element id="module-output" name="SoftwareDevelopmentDatabase" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/mysql-connector-java-5.1.38.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/.idea/libraries/jasperreports-6.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Курсовая/lib/itext-pdfa-5.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Курсовая/lib/itextpdf-5.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Курсовая/lib/commons-logging-1.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Курсовая/lib/commons-javaflow-20060411.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Курсовая/lib/commons-digester-2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Курсовая/lib/commons-collections-3.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Курсовая/lib/commons-beanutils-1.9.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Курсовая/lib/groovy-all-2.0.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
+<!-- 2016-05-16T16:46:02 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="methodology_at_the_most_successful_projects" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c23c34f9-33fd-455d-bfd9-23f12d8e183b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySqlDriver - final"/>
+	<queryString>
+		<![CDATA[SELECT Проект as Project, `Процентное соотношение выполненых требований` as PercentageOfSuccess, `Методология` as Methodology
+ FROM 
+   (SELECT Проект,  (`Выполненных требований` / `Общее количество требований` *100) as `Процентное соотношение выполненых требований`, `Методология` 
+    FROM 
+      (SELECT Проект,sum(Abs(`В срок`)) as `Выполненных требований`, Count(`В срок`) as `Общее количество требований`, `Методология`  
+       FROM 
+        (SELECT Проект, Требование, `В срок`, `Методология` 
+ 		FROM `Проект-Требование` 
+         INNER JOIN Проект 
+         ON `Проект-Требование`.Проект = Проект.Название
+ 		WHERE Проект.Закончен = True) as firstT
+ 	  GROUP BY Проект) as secondT
+ 	) as thirdT
+ WHERE `Процентное соотношение выполненых требований` >= 60 
+ AND `Процентное соотношение выполненых требований` = 
+ (SELECT Max(`Процентное соотношение выполненых требований`) AS Выражение1
+    FROM 
+      (SELECT Проект,  (`Выполненных требований` / `Общее количество требований` *100) as `Процентное соотношение выполненых требований` 
+       FROM 
+         (SELECT Проект,sum(Abs(`В срок`)) as `Выполненных требований`, Count(`В срок`) as `Общее количество требований` 
+          FROM 
+            (SELECT Проект, Требование, `В срок`
+ 			FROM `Проект-Требование` 
+             INNER JOIN Проект 
+             ON `Проект-Требование`.Проект = Проект.Название
+ 			WHERE Проект.Закончен = True) as fouthT
+           GROUP BY Проект) as fifthT
+       ) as sixthT
+ 
+ )]]>
+	</queryString>
+	<field name="Project" class="java.lang.String"/>
+	<field name="PercentageOfSuccess" class="java.math.BigDecimal"/>
+	<field name="Methodology" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="89" splitType="Stretch">
+			<staticText>
+				<reportElement x="-11" y="9" width="581" height="61" uuid="aeb52bf9-330c-4fa6-93d8-ce818c191cfe"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Отчет по задаче: "Найти какие методологии используются в самых успешных проектах"]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="51" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="-2" width="510" height="36" backcolor="#ADAAAA" uuid="0ca4db22-194a-4a88-830d-cb7f4eebccdd"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="4" width="100" height="30" uuid="6a81f3ef-a346-4298-8170-194b00a3fc0e"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Проект]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="4" width="160" height="47" uuid="bae3c80c-bb49-46bd-8fb6-8519cf3f2660"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Процент выполненных требований]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="4" width="110" height="36" uuid="600191e0-aa08-4273-a971-a5160b689be4"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Используемая методология]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="49" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="10" width="100" height="30" uuid="30720883-146f-4fc9-b7ee-0993928c3b3f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Project}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="10" width="100" height="30" uuid="394c174d-0c20-41d1-9084-ad0ef4aef26e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{PercentageOfSuccess}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="10" width="100" height="30" uuid="90fd73cc-beee-4f28-8402-c1d605e2c07a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Methodology}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="HH:mm">
+				<reportElement x="90" y="20" width="100" height="30" uuid="632868c7-45ce-4077-a568-275cdb6553cc"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="-10" y="20" width="100" height="30" uuid="d17fb836-a05c-4be9-8155-a499f9c3ed92"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

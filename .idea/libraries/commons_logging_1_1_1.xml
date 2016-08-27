@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="commons-logging-1.1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../Курсовая/lib/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Курсовая/lib/commons-javaflow-20060411.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Курсовая/lib/commons-digester-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Курсовая/lib/commons-collections-3.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Курсовая/lib/commons-beanutils-1.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../Курсовая/lib/groovy-all-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

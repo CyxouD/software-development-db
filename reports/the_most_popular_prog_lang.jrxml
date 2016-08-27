@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
+<!-- 2016-05-16T16:46:10 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55510dcb-bae7-4435-8d93-4da38e72db2e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySqlDriver - final"/>
+	<queryString>
+		<![CDATA[SELECT Язык as Language,`Общий бюджет проектов` as Budget_project_sum, `Наиболее частая ОС языка` as Thett, `Количество программ` as ffff
+ FROM 
+ (SELECT `Пишется на языке программирования` AS Язык, sum(бюджет) AS `Общий бюджет проектов`, `Наиболее частая ОС` AS `Наиболее частая ОС языка`, count(*) AS `Количество программ` FROM
+  (SELECT secondT.название, бюджет, `Пишется на языке программирования`, `Наиболее частая ОС` FROM 
+    (SELECT название, бюджет, `Пишется на языке программирования` FROM 
+      (SELECT Программа.название, бюджет FROM Программа INNER JOIN Проект ON Программа.проект = Проект.название)  AS firstT
+        INNER JOIN Реализация ON firstT.название = Реализация.Программа)  AS secondT 
+          INNER JOIN `Язык программирования` ON `Язык программирования`.Название = secondT.`Пишется на языке программирования`) as thirdT
+          GROUP BY `Пишется на языке программирования`, `Наиболее частая ОС`)  AS fouthT
+ ORDER BY `Количество программ` DESC]]>
+	</queryString>
+	<field name="Language" class="java.lang.String"/>
+	<field name="Budget_project_sum" class="java.math.BigDecimal"/>
+	<field name="Thett" class="java.lang.String"/>
+	<field name="ffff" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="0" width="581" height="61" uuid="5857530b-6a06-4178-a534-4707cb86c00a"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Отчет по задаче: "Найти популярнось каждого языка программирования"]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="47" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="0" width="595" height="47" backcolor="#ADAAAA" uuid="d4e5161f-4035-4ee6-935f-ebe5a11e3b0a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-10" y="5" width="129" height="39" uuid="4bef2a2f-d709-49a3-a75e-70537650f401"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Язык программирования]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="6" width="110" height="35" uuid="543b2d9a-1d34-4e1c-b49b-49025bca486c"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Количество программ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="7" width="119" height="34" uuid="e328e194-94cc-4b42-83c1-d916795bb563"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Общий бюджет проектов]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="3" width="130" height="40" uuid="0fbb3ff3-f8ab-4cef-986f-15c72bb58988"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Наиболее часто используемая ОС ЯП]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="10" width="100" height="30" uuid="cde3d6b3-8f9c-4a14-bbb3-f9eb1522437a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Language}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="10" width="89" height="30" uuid="5a4c9a5f-74cf-49ac-81e6-94c70830071a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Budget_project_sum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="10" width="100" height="30" uuid="50adf070-d09d-4591-bef9-c09b753f6905"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Thett}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="10" width="100" height="30" uuid="a39c60bd-82bc-48b3-baa5-ebc48c609a9e"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ffff}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="42">
+			<textField pattern="HH:mm">
+				<reportElement x="80" y="12" width="100" height="30" uuid="e815369c-cd16-4c1f-98c7-ab2830f3b4b0"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="-10" y="12" width="100" height="30" uuid="b1ad6936-aa87-417b-af31-de1491e3a8fb"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
